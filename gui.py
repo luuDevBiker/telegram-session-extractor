@@ -94,9 +94,9 @@ class MainWindow(QMainWindow):
         self.path_label = QLabel("Chưa chọn file/thư mục")
         self.path_label.setStyleSheet("color: gray;")
         select_layout.addWidget(self.path_label)
-        btn_browse = QPushButton("Chọn...")
-        btn_browse.clicked.connect(self.browse_source)
-        select_layout.addWidget(btn_browse)
+        self.btn_browse = QPushButton("Chọn...")
+        self.btn_browse.clicked.connect(self.browse_source)
+        select_layout.addWidget(self.btn_browse)
         input_layout.addLayout(select_layout)
 
         input_group.setLayout(input_layout)
@@ -179,6 +179,7 @@ class MainWindow(QMainWindow):
     def on_finished(self, results: list[ProbeResult]):
         self.results = results
         self.progress_bar.setVisible(False)
+        self.log_area.setVisible(False)
         self.btn_extract.setEnabled(True)
         self.btn_export_excel.setEnabled(True)
 
@@ -189,6 +190,7 @@ class MainWindow(QMainWindow):
 
     def on_error(self, error_msg: str):
         self.progress_bar.setVisible(False)
+        self.log_area.setVisible(False)
         self.btn_extract.setEnabled(True)
         QMessageBox.critical(self, "Lỗi", error_msg)
         self.status_bar.showMessage("Lỗi")
